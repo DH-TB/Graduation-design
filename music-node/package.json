@@ -1,0 +1,22 @@
+{
+  "name": "TTMS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node app.js",
+    "refreshMongo": "babel-node ./server/refreshMongo.js"
+  },
+  "devDependencies": {
+    "mongoose": "^4.10.3",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "path": "^0.12.7"
+  }
+}
