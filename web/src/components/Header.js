@@ -1,47 +1,72 @@
 import React, {Component} from 'react';
-import {Layout, Menu,Input} from 'antd';
-import Carousel from './Carousel';
-import LoadMoreList from './hotList';
+import {Layout, Divider, Input, AutoComplete, Icon} from 'antd';
+import {Link} from 'react-router-dom';
+import logo from '../img/logo.jpg';
+
+import user from '../img/user.png';
 
 const Search = Input.Search;
 const {Header, Content, Footer} = Layout;
 
 class Headers extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+            finsMusic: []
+        }
+    }
+
+    handleSearch(Name) {
+        this.props.searchMusicByName(Name);
+        console.log(Name);
+        const searchMusic = this.props.searchMusic;
+        this.setState({
+            dataSource: searchMusic
+        })
+    }
+
+    LinkToLogin() {
+        window.location.href = 'http://localhost:3000/login';
+    }
+
+    LinkToRegister(){
+        window.location.href = 'http://localhost:3000/register';
+    }
+
     render() {
         return (
-            <Layout className="layout">
-                <Header>
-                    <div className="logo"/>
-                    <Menu
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={['2']}
-                        style={{lineHeight: '64px'}}
-                    >
-                        <Menu.Item key="1">nav 1</Menu.Item>
-                        <Menu.Item key="2">nav 2</Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
-                        <Menu.Item key="4">
-                            <Search
-                                placeholder="input search text"
-                                onSearch={value => console.log(value)}
-                                style={{ width: 200,float:'right' }}
-                            />
-                        </Menu.Item>
+            <Header className='header'>
+                <img src={logo} className='logo-size'/>
 
-                    </Menu>
-                </Header>
-                <Content style={{padding: '0 50px'}}>
-                    <Carousel />
-                    <div style={{background: '#fff', padding: 24, minHeight: 280}}>
-                        <h3>热门推荐</h3>
-                        <LoadMoreList />
-                    </div>
-                </Content>
-                <Footer style={{textAlign: 'center'}}>
-                    Ant Design ©2016 Created by Ant UED
-                </Footer>
-            </Layout>
+                <Search className='search'
+                        placeholder="input search text"
+                        style={{width: 300}}
+                />
+
+                <span className='login-register'>
+                        <a onClick={this.LinkToLogin.bind(this)}>登陆</a>
+                        <Divider type="vertical"/>
+                        <a onClick={this.LinkToRegister.bind(this)}>注册</a>
+                        <Divider type="vertical"/>
+                        <img src={user} className='user-size'/>
+                    </span>
+
+                <AutoComplete
+                    className="certain-category-search"
+                    dropdownClassName="certain-category-search-dropdown"
+                    dropdownMatchSelectWidth={false}
+                    dropdownStyle={{width: '300px'}}
+                    size="large"
+                    style={{width: '100%'}}
+                    dataSource={this.state.finsMusic}
+                    placeholder="input here"
+                    optionLabelProp="value" onChange={this.handleSearch.bind(this)}>
+                    <Input ref="followed" suffix={<Icon type="search" className="certain-category-icon"/>}/>
+                </AutoComplete>
+
+
+            </Header>
         )
     }
 

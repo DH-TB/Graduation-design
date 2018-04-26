@@ -1,9 +1,9 @@
 import * as request from '../constant/request';
 
-export const getItemData = (item)=>{
+export const getMusicByName = (music)=>{
     return {
-        type:'GET_ITEM_DATA',
-        item
+        type:'GET_MUSIC_BY_NAME',
+        music
     }
 };
 
@@ -14,12 +14,12 @@ export const getReceiptText = (receipt)=>{
     }
 };
 
-export const getItem = () => {
+export const searchMusicByName = (music) => {
     return dispatch => {
         (async () => {
-            const res = await request.get('../api/item');
+            const res = await request.get(`../api/music/${music}`);
             if (res.status === 200) {
-                dispatch(getItemData(res.body))
+                dispatch(getMusicByName(res.body))
             }
         })()
     }

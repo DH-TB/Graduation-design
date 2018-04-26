@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import item from './item';
+import searchMusic from './searchMusic';
 
 export default combineReducers({
 
-    item
+    searchMusic
 })

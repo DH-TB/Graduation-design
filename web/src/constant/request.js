@@ -1,4 +1,4 @@
-// import HTTP_METHOD from './http-method'
+import HTTP_METHOD from './http-method'
 import { message } from 'antd'
 
 async function errHandler (res) {
