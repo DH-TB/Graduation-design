@@ -12,10 +12,25 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String image;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private List<Comment> commentList;
+    public String getImage() {
+        return image;
+    }
+
+    public User(){
+
+    }
+
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +56,4 @@ public class User {
         this.password = password;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
 }

@@ -11,11 +11,14 @@ buildscript {
         classpath("org.flywaydb:flyway-gradle-plugin:5.0.7")
         classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:1.2.1.RELEASE"
         classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
+        classpath "com.jayway.restassured:rest-assured:2.5.0"
+        classpath "com.jayway.restassured:spring-mock-mvc:2.5.0"
 
     }
 }
 
 apply plugin: 'java'
+apply plugin: "groovy"
 apply plugin: 'org.flywaydb.flyway'
 apply plugin: 'org.springframework.boot'
 apply plugin: "spring-cloud-contract"
@@ -29,10 +32,33 @@ repositories {
 }
 
 dependencies {
+    testCompile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
+    testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
+    compile('org.springframework.cloud:spring-cloud-starter-config')
+
     compile("mysql:mysql-connector-java")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.0'
     testCompile("junit:junit")
+    compile "org.flywaydb:flyway-core:5.0.6"
+    testCompile "com.jayway.restassured:rest-assured:2.5.0"
+    testCompile "com.jayway.restassured:spring-mock-mvc:2.5.0"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR5"
+        mavenBom 'org.springframework.cloud:spring-cloud-contract-dependencies:1.2.1.RELEASE'
+    }
+}
+
+
+contracts {
+    packageWithBaseClasses = 'com.bs'
+}
+
+bootRun {
+    addResources = true
 }

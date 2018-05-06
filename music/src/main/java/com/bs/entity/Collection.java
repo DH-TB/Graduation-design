@@ -15,10 +15,21 @@ public class Collection {
     @Column
     private Long musicId;
     @Column
-    private Long playCount;
+    private Long count;
     @Column
     private Integer love;
 
+    public Collection(){
+
+    }
+
+    public Collection(Long id, Long userId, Long musicId, Long count, Integer love) {
+        this.id = id;
+        this.userId = userId;
+        this.musicId = musicId;
+        this.count = count;
+        this.love = love;
+    }
 
     public Long getId() {
         return id;
@@ -52,11 +63,11 @@ public class Collection {
         this.love = love;
     }
 
-    public Long getPlayCount() {
-        return playCount;
+    public Long getCount() {
+        return count;
     }
 
-    public void setPlayCount(Long playCount) {
-        this.playCount = playCount;
+    public void setCount(Long count) {
+        this.count = count;
     }
 }

@@ -3,14 +3,24 @@ package com.bs.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "signer")
-public class Signer {
+@Table(name = "singer")
+public class Singer {
     @Id
     @GeneratedValue
 
     private Long id;
     private String tag;
-    private String signer;
+    private String singer;
+
+    public Singer(){
+
+    }
+
+    public Singer(Long id, String tag, String singer) {
+        this.id = id;
+        this.tag = tag;
+        this.singer = singer;
+    }
 
     public Long getId() {
         return id;
@@ -20,12 +30,12 @@ public class Signer {
         this.id = id;
     }
 
-    public String getSigner() {
-        return signer;
+    public String getSinger() {
+        return singer;
     }
 
-    public void setSigner(String signer) {
-        this.signer = signer;
+    public void setSinger(String singer) {
+        this.singer = singer;
     }
 
     public String getTag() {

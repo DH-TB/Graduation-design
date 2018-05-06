@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "signerLeaderBoard")
-public class SignerLeaderBoard {
+@Table(name = "sinerLeaderBoard")
+public class SingerLeaderBoard {
 
     @Id
     @GeneratedValue
@@ -16,6 +16,17 @@ public class SignerLeaderBoard {
     private Long signerId;
     private Long hot;
     private String tag;
+
+    public SingerLeaderBoard(){
+
+    }
+
+    public SingerLeaderBoard(Long id, Long signerId, Long hot, String tag) {
+        this.id = id;
+        this.signerId = signerId;
+        this.hot = hot;
+        this.tag = tag;
+    }
 
     public Long getId() {
         return id;

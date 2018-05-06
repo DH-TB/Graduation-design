@@ -17,6 +17,20 @@ public class MusicLeaderBoard {
     private String type;
     private Long hot;
     private String tag;
+    private Long singerId;
+
+    public MusicLeaderBoard(){
+
+    }
+
+    public MusicLeaderBoard(Long id, Long musicId, String type, Long hot, String tag, Long singerId) {
+        this.id = id;
+        this.musicId = musicId;
+        this.type = type;
+        this.hot = hot;
+        this.tag = tag;
+        this.singerId = singerId;
+    }
 
     public Long getId() {
         return id;
@@ -56,5 +70,13 @@ public class MusicLeaderBoard {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Long getSingerId() {
+        return singerId;
+    }
+
+    public void setSingerId(Long singerId) {
+        this.singerId = singerId;
     }
 }

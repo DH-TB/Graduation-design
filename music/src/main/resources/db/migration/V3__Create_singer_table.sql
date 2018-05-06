@@ -1,5 +1,5 @@
-CREATE TABLE signer(
+CREATE TABLE singer(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     tag VARCHAR(255),
-    signer VARCHAR(255)
+    singer VARCHAR(255)
 ) engine=InnoDB DEFAULT CHARSET = utf8;

@@ -10,6 +10,5 @@ CREATE TABLE userStyle(
     pop INT(10),
     heavyMetal INT(10),
     rap INT(10),
-    folk INT(10),
-    FOREIGN KEY (userId) REFERENCES user(id)
+    folk INT(10)
 ) engine=InnoDB DEFAULT CHARSET = utf8;

@@ -4,7 +4,5 @@ CREATE TABLE comment(
     count INT(10),
     musicId INT(10),
     userId INT(10),
-    FOREIGN KEY (musicId) REFERENCES music(id),
-    FOREIGN KEY (userId) REFERENCES user(id)
+    isLike INT(10)
 ) engine=InnoDB DEFAULT CHARSET = utf8;
-

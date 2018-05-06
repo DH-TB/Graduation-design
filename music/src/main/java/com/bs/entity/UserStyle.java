@@ -25,6 +25,24 @@ public class UserStyle {
     private Integer rap;
     private Integer folk;
 
+    public UserStyle() {
+
+    }
+
+    public UserStyle(Long userId, Integer jazz, Integer rock, Integer hiphop, Integer light, Integer blues, Integer classical, Integer pop, Integer heavyMetal, Integer rap, Integer folk) {
+        this.userId = userId;
+        this.jazz = jazz;
+        this.rock = rock;
+        this.hiphop = hiphop;
+        this.light = light;
+        this.blues = blues;
+        this.classical = classical;
+        this.pop = pop;
+        this.heavyMetal = heavyMetal;
+        this.rap = rap;
+        this.folk = folk;
+    }
+
     public Long getId() {
         return id;
     }

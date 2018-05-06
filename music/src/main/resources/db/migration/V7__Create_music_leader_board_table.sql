@@ -3,7 +3,6 @@ CREATE TABLE musicLeaderBoard(
     tag VARCHAR(255),
     type VARCHAR(255),
     hot INT(10),
-    musicId INT(10),
-    FOREIGN KEY (musicId) REFERENCES music(id)
+    musicId INT(10)
 ) engine=InnoDB DEFAULT CHARSET = utf8;
 

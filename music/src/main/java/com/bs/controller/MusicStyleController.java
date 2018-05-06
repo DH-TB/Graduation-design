@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 public class MusicStyleController {
     @Autowired
     private MusicStyleRepository musicStyleRepository;
@@ -20,7 +20,7 @@ public class MusicStyleController {
     //给音乐贴标签
     @PutMapping("/musicStyle")
     public ResponseEntity setMusicStyle(@RequestBody MusicStyle music){
-        MusicStyle musics = musicStyleRepository.findOneByMusicId(music.getMusicId());
+        MusicStyle musics = musicStyleRepository.findByMusicId(music.getMusicId());
 
         musics.setBlues(musics.getBlues() + music.getBlues());
         musics.setClassical(musics.getClassical() + music.getClassical());

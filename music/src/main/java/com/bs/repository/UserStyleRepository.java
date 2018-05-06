@@ -4,4 +4,5 @@ import com.bs.entity.UserStyle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserStyleRepository extends JpaRepository<UserStyle,Long>{
+    UserStyle findByUserId(Long userId);
 }

@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment,Long>{
-//    List<Comment> findByMusicIdOrderByLoveCount(Long musicId);
+    List<Comment> findByMusicIdOrderByCountDesc(Long musicId);
+
+    List<Comment> findAllByUserId (Long musicId);
 }

@@ -10,6 +10,5 @@ CREATE TABLE musicStyle(
     heavyMetal INT(10),
     rap INT(10),
     folk INT(10),
-    musicId INT(10),
-    FOREIGN KEY (musicId) REFERENCES music(id)
+    musicId INT(10)
 ) engine=InnoDB DEFAULT CHARSET = utf8;

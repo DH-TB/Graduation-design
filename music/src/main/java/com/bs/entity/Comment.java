@@ -17,6 +17,28 @@ public class Comment {
     private Long userId;
     private String content;
     private int count;
+    private Boolean isLike;
+
+    public Comment(){
+
+    }
+
+    public Comment(Long id, Long musicId, Long userId, String content, int count, Boolean isLike) {
+        this.id = id;
+        this.musicId = musicId;
+        this.userId = userId;
+        this.content = content;
+        this.count = count;
+        this.isLike = isLike;
+    }
+
+    public Boolean getLike() {
+        return isLike;
+    }
+
+    public void setLike(Boolean like) {
+        isLike = like;
+    }
 
     public Long getId() {
         return id;

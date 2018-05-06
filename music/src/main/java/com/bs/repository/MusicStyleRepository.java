@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MusicStyleRepository extends JpaRepository<MusicStyle,Long>{
-    MusicStyle findOneByMusicId(Long musicId);
+    MusicStyle findByMusicId(Long musicId);
 
 }

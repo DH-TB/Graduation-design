@@ -8,9 +8,11 @@ import java.util.List;
 public interface CollectionRepository extends JpaRepository<Collection, Long> {
     List<Collection> findByUserIdOrderByLove(Long userId);
 
-    List<Collection> findByUserIdOrderByPlayCount(Long userId);
+    List<Collection> findByUserIdOrderByCount(Long userId);
 
-    List<Collection> findByMusicIdOrderByPlayCount(Long musicId);
+    List<Collection> findByMusicIdOrderByCount(Long musicId);
 
     List<Collection> findByUserId(Long userId);
+
+    Collection deleteByMusicId(Long musicId);
 }
