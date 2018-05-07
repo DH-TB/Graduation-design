@@ -13,7 +13,7 @@ public class SingerLeaderBoard {
     @GeneratedValue
 
     private Long id;
-    private Long signerId;
+    private Long singerId;
     private Long hot;
     private String tag;
 
@@ -21,11 +21,19 @@ public class SingerLeaderBoard {
 
     }
 
-    public SingerLeaderBoard(Long id, Long signerId, Long hot, String tag) {
+    public SingerLeaderBoard(Long id, Long singerId, Long hot, String tag) {
         this.id = id;
-        this.signerId = signerId;
+        this.singerId = singerId;
         this.hot = hot;
         this.tag = tag;
+    }
+
+    public Long getSingerId() {
+        return singerId;
+    }
+
+    public void setSingerId(Long singerId) {
+        this.singerId = singerId;
     }
 
     public Long getId() {
@@ -36,13 +44,6 @@ public class SingerLeaderBoard {
         this.id = id;
     }
 
-    public Long getSignerId() {
-        return signerId;
-    }
-
-    public void setSignerId(Long signerId) {
-        this.signerId = signerId;
-    }
 
     public Long getHot() {
         return hot;

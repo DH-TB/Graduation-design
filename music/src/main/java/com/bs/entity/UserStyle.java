@@ -14,22 +14,22 @@ public class UserStyle {
 
     private Long id;
     private Long userId;
-    private Integer jazz;
-    private Integer rock;
-    private Integer hiphop;
-    private Integer light;
-    private Integer blues;
-    private Integer classical;
-    private Integer pop;
-    private Integer heavyMetal;
-    private Integer rap;
-    private Integer folk;
+    private Double jazz;
+    private Double rock;
+    private Double hiphop;
+    private Double light;
+    private Double blues;
+    private Double classical;
+    private Double pop;
+    private Double heavyMetal;
+    private Double rap;
+    private Double folk;
 
     public UserStyle() {
 
     }
 
-    public UserStyle(Long userId, Integer jazz, Integer rock, Integer hiphop, Integer light, Integer blues, Integer classical, Integer pop, Integer heavyMetal, Integer rap, Integer folk) {
+    public UserStyle(Long userId, Double jazz, Double rock, Double hiphop, Double light, Double blues, Double classical, Double pop, Double heavyMetal, Double rap, Double folk) {
         this.userId = userId;
         this.jazz = jazz;
         this.rock = rock;
@@ -59,83 +59,83 @@ public class UserStyle {
         this.userId = userId;
     }
 
-    public Integer getJazz() {
+    public Double getJazz() {
         return jazz;
     }
 
-    public void setJazz(Integer jazz) {
+    public void setJazz(Double jazz) {
         this.jazz = jazz;
     }
 
-    public Integer getRock() {
+    public Double getRock() {
         return rock;
     }
 
-    public void setRock(Integer rock) {
+    public void setRock(Double rock) {
         this.rock = rock;
     }
 
-    public Integer getHiphop() {
+    public Double getHiphop() {
         return hiphop;
     }
 
-    public void setHiphop(Integer hiphop) {
+    public void setHiphop(Double hiphop) {
         this.hiphop = hiphop;
     }
 
-    public Integer getLight() {
+    public Double getLight() {
         return light;
     }
 
-    public void setLight(Integer light) {
+    public void setLight(Double light) {
         this.light = light;
     }
 
-    public Integer getBlues() {
+    public Double getBlues() {
         return blues;
     }
 
-    public void setBlues(Integer blues) {
+    public void setBlues(Double blues) {
         this.blues = blues;
     }
 
-    public Integer getClassical() {
+    public Double getClassical() {
         return classical;
     }
 
-    public void setClassical(Integer classical) {
+    public void setClassical(Double classical) {
         this.classical = classical;
     }
 
-    public Integer getPop() {
+    public Double getPop() {
         return pop;
     }
 
-    public void setPop(Integer pop) {
+    public void setPop(Double pop) {
         this.pop = pop;
     }
 
-    public Integer getHeavyMetal() {
+    public Double getHeavyMetal() {
         return heavyMetal;
     }
 
-    public void setHeavyMetal(Integer heavyMetal) {
+    public void setHeavyMetal(Double heavyMetal) {
         this.heavyMetal = heavyMetal;
     }
 
-    public Integer getRap() {
+    public Double getRap() {
         return rap;
     }
 
-    public void setRap(Integer rap) {
+    public void setRap(Double rap) {
         this.rap = rap;
     }
 
-    public Integer getFolk() {
+    public Double getFolk() {
         return folk;
     }
 
-    public void setFolk(Integer folk) {
+    public void setFolk(Double folk) {
         this.folk = folk;
     }
 }

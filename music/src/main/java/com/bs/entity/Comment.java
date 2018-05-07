@@ -18,6 +18,9 @@ public class Comment {
     private String content;
     private int count;
     private Boolean isLike;
+    private String nickName;
+    private String image;
+    private String createTime;
 
     public Comment(){
 
@@ -30,6 +33,30 @@ public class Comment {
         this.content = content;
         this.count = count;
         this.isLike = isLike;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Boolean getLike() {

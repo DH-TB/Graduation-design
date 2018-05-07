@@ -12,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.bs.utils.Md5Util.getMD5;
+
 @Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -40,6 +42,7 @@ public class UserBase {
     }
 
     private void initCart(){
-        userRepository.save(new User((long)1,"root","root"));
+        String md5Password = getMD5(getMD5("root"));
+        userRepository.save(new User((long)1,"root",md5Password));
     }
 }

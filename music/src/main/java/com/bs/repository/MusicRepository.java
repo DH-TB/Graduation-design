@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface MusicRepository extends JpaRepository<Music,Long>{
     List<Music> findByMusicContaining(String musicName);
-    Music findByMusic(String musicName);
-
 }

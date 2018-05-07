@@ -10,7 +10,8 @@ Contract.make {
     response {
         status 200
         body("""
-                  {
+                  [
+                   {
                           "id": 1,
                           "musicId": 1,
                           "userId": 1,
@@ -18,6 +19,7 @@ Contract.make {
                           "count":100,
                           "isLike":true
                   }
+                  ]
                 """)
     }
 }

@@ -18,6 +18,8 @@ public class CommentController {
     //   添加一条评论
     @PostMapping("")
     public ResponseEntity addComment(@RequestBody Comment comment) {
+        comment.setLike(false);
+        comment.setCount(0);
         commentRepository.save(comment);
         return new ResponseEntity<>("1", HttpStatus.CREATED);
     }
@@ -25,14 +27,14 @@ public class CommentController {
     //   获取我所有的评论
     @GetMapping("/{userId}")
     public ResponseEntity getMusicComment(@PathVariable("userId") Long userId) {
-        List<Comment> commentList = commentRepository.findAllByUserId(userId);
+        List<Comment> commentList = commentRepository.findAllByUserIdOrderByCreateTime(userId);
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
     //  给评论点赞
-    @PutMapping("/{commentId}")
-    public ResponseEntity likeComment(@PathVariable("commentId") Long commentId) {
-        Comment comment = commentRepository.findOne(commentId);
+    @PutMapping("")
+    public ResponseEntity likeComment(@RequestParam("id") Long id) {
+        Comment comment = commentRepository.findOne(id);
         comment.setCount(comment.getCount() + 1);
         comment.setLike(true);
         commentRepository.save(comment);
@@ -40,9 +42,9 @@ public class CommentController {
     }
 
     //  取消评论点赞
-    @PutMapping("/undo/ {commentId}")
-    public ResponseEntity unlikeComment(@PathVariable("commentId") Long commentId) {
-        Comment comment = commentRepository.findOne(commentId);
+    @PutMapping("/undo")
+    public ResponseEntity unlikeComment(@RequestParam("id") Long id) {
+        Comment comment = commentRepository.findOne(id);
         comment.setCount(comment.getCount() - 1);
         comment.setLike(false);
         commentRepository.save(comment);
@@ -50,10 +52,10 @@ public class CommentController {
     }
 
     //  删除评论
-    @DeleteMapping("/{commentId}")
-    public ResponseEntity deleteComment(@PathVariable("commentId") Long commentId) {
-        commentRepository.delete(commentId);
-        if (commentRepository.findOne(commentId) == null) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteComment(@PathVariable("id") Long id) {
+        commentRepository.delete(id);
+        if (commentRepository.findOne(id) == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

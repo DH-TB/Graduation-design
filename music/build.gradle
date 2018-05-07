@@ -1,6 +1,9 @@
 group 'music'
 version '1.0-SNAPSHOT'
 buildscript {
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+    }
     repositories {
         mavenCentral()
         maven { url "http://repo.spring.io/snapshot" }
@@ -24,7 +27,6 @@ apply plugin: 'org.springframework.boot'
 apply plugin: "spring-cloud-contract"
 apply plugin: "io.spring.dependency-management"
 
-
 repositories {
     jcenter()
     maven { url "http://repo.spring.io/snapshot" }
@@ -32,19 +34,21 @@ repositories {
 }
 
 dependencies {
-    testCompile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
-    testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
-    compile('org.springframework.cloud:spring-cloud-starter-config')
-
     compile("mysql:mysql-connector-java")
+    compile "org.flywaydb:flyway-core:5.0.6"
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.0'
-    testCompile("junit:junit")
-    compile "org.flywaydb:flyway-core:5.0.6"
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile('org.springframework.cloud:spring-cloud-starter-config')
+
     testCompile "com.jayway.restassured:rest-assured:2.5.0"
     testCompile "com.jayway.restassured:spring-mock-mvc:2.5.0"
+    testCompile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
+    testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
+    testCompile('org.springframework.security:spring-security-test')
 }
 
 dependencyManagement {
