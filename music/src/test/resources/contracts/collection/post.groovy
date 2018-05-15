@@ -9,7 +9,7 @@ Contract.make {
         body("""
                  {
                           "id": 2,
-                          "userId":1,
+                          "userId":2,
                           "musicId":1,
                           "count": 100,
                           "love": 5

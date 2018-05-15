@@ -47,18 +47,24 @@ public class MusicController {
     @Autowired
     private UserStyleRepository userStyleRepository;
 
-    //格式话只返回歌名
-    public List<HashMap> getMusicName(List<Music> music, List<HashMap> musicInfo) {
-        music.forEach(m -> {
-            String musicName1 = m.getMusic();
-            String signer = signerRepository.findOne(m.getSingerId()).getSinger();
-            String info = musicName1 + '-' + signer;
-            HashMap map = new HashMap();
-            map.put("id", m.getId());
-            map.put("info", info);
-            musicInfo.add(map);
-        });
-        return musicInfo;
+    //搜索时模糊匹配歌曲
+    @GetMapping("")
+    public ResponseEntity getMusicContaining(@RequestParam("musicName") String musicName) throws BusinessException {
+        List<Music> musics = musicRepository.findByMusicContaining(musicName);
+        List<HashMap> musicInfo = new ArrayList<>();
+
+        if (musics.size() == 0) {
+            List<Map> findMusic = musicCenterService.findMusic(musicName);
+            if (findMusic.size() == 0) {
+                throw new BusinessException("没有找到该音乐");
+            } else {
+                saveDate(findMusic);
+            }
+            List<Music> music1 = musicRepository.findByMusicContaining(musicName);
+            return new ResponseEntity<>(getMusicName(music1, musicInfo), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(getMusicName(musics, musicInfo), HttpStatus.OK);
+        }
     }
 
     private Singer initSinger(Map music){
@@ -87,61 +93,24 @@ public class MusicController {
         return newSinger;
     }
 
-    //找到数据存入mysql
-    private void saveDate(List<Map> findMusic){
-        for (Map music1 : findMusic) {
-            Music newMusic = new Music();
-
-            newMusic.setMusic((String) music1.get("music"));
-            newMusic.setAlbum((String) music1.get("album"));
-            newMusic.setCollected(false);
-            musicRepository.save(newMusic);
-            //添加一条music
-
-            //保存评论
-            List<Map> comments = (List<Map>) music1.get("comments");
-            initComment(comments, newMusic);
-
-            Singer newSinger = initSinger(music1);
-
-            newMusic.setSingerId(newSinger.getId());
-            newMusic.setType(newSinger.getTag());
-
-            initMusicLeaderBoard(newMusic,newSinger);
-
-            //添加一条音乐类型
-            initMusicStyle(newMusic);
-        }
+    private Music initMusic(Map music,Singer singer){
+        Music newMusic = new Music();
+        newMusic.setMusic((String) music.get("music"));
+        newMusic.setAlbum((String) music.get("album"));
+        newMusic.setSingerId(singer.getId());
+        newMusic.setType(singer.getTag());
+        newMusic.setCollected(false);
+        musicRepository.save(newMusic);
+        return newMusic;
     }
 
     private void initMusicLeaderBoard(Music music,Singer singer){
-        //添加一条排行榜
         MusicLeaderBoard newMusicLeaderBoard = new MusicLeaderBoard();
         newMusicLeaderBoard.setSingerId(singer.getId());
         newMusicLeaderBoard.setType(singer.getTag());
         newMusicLeaderBoard.setMusicId(music.getId());
         newMusicLeaderBoard.setHot((long) new Random().nextInt(10000));
         musicLeaderRepository.save(newMusicLeaderBoard);
-    }
-
-    //搜索时模糊匹配歌曲
-    @GetMapping("")
-    public ResponseEntity getMusicContaining(@RequestParam("musicName") String musicName) throws BusinessException {
-        List<Music> musics = musicRepository.findByMusicContaining(musicName);
-        List<HashMap> musicInfo = new ArrayList<>();
-
-        if (musics.size() == 0) {
-            List<Map> findMusic = musicCenterService.findMusic(musicName);
-            if (findMusic.size() == 0) {
-                throw new BusinessException("没有找到该音乐");
-            } else {
-                saveDate(findMusic);
-            }
-            List<Music> music1 = musicRepository.findByMusicContaining(musicName);
-            return new ResponseEntity<>(getMusicName(music1, musicInfo), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(getMusicName(musics, musicInfo), HttpStatus.OK);
-        }
     }
 
     private void initComment(List<Map> comments, Music newMusic) {
@@ -174,21 +143,56 @@ public class MusicController {
         musicStyleRepository.save(newMusicStyle);
     }
 
-    //根据音乐名称获取信息
+    //格式化只返回歌名
+    public List<HashMap> getMusicName(List<Music> music, List<HashMap> musicInfo) {
+        music.forEach(m -> {
+            String musicName1 = m.getMusic();
+            String signer = signerRepository.findOne(m.getSingerId()).getSinger();
+            String info = musicName1 + '-' + signer;
+            HashMap map = new HashMap();
+            map.put("id", m.getId());
+            map.put("info", info);
+            musicInfo.add(map);
+        });
+        return musicInfo;
+    }
+
+    //找到数据存入mysql
+    private void saveDate(List<Map> findMusic){
+        for (Map music : findMusic) {
+
+            //添加歌手
+            Singer newSinger = initSinger(music);
+
+            //添加一条music
+            Music newMusic = initMusic(music,newSinger);
+
+            //添加评论
+            List<Map> comments = (List<Map>) music.get("comments");
+            initComment(comments, newMusic);
+
+            //添加一条排行榜
+            initMusicLeaderBoard(newMusic,newSinger);
+
+            //添加一条音乐类型
+            initMusicStyle(newMusic);
+        }
+    }
+
+    //根据音乐Id获取信息
     @GetMapping("/{id}")
     public ResponseEntity getOneMusic(@PathVariable("id") Long id) throws BusinessException {
         Music music = musicRepository.findOne(id);
-        //设置播放量 +1
 
+        //设置播放量 +1
 
         String signer = signerRepository.findOne(music.getSingerId()).getSinger();
         List<Comment> comments = commentRepository.findByMusicIdOrderByCountDesc(id);
-
         Map musicInfo = new HashMap();
+
         musicInfo.put("music", music);
         musicInfo.put("singer", signer);
         musicInfo.put("comment", comments);
-
 
         return new ResponseEntity<>(musicInfo, HttpStatus.OK);
     }

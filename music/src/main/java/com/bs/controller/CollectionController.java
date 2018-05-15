@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/collection")
 public class CollectionController {
+
     @Autowired
     private CollectionRepository collectionRepository;
     @Autowired
@@ -44,11 +45,13 @@ public class CollectionController {
     public ResponseEntity getAllCollectionMusic(@PathVariable Long userId) {
         List<Collection> collections = collectionRepository.findByUserId(userId);
         List collectionList = new ArrayList<>();
+
         for (Collection collection : collections) {
             ObjectMapper oMapper = new ObjectMapper();
             Map data = oMapper.convertValue(collection, Map.class);
             Music music = musicRepository.findOne(collection.getMusicId());
             Singer singer = signerRepository.findOne(music.getSingerId());
+
             data.put("singer", singer.getSinger());
             data.put("music", music.getMusic());
             data.put("album", music.getAlbum());
@@ -63,56 +66,17 @@ public class CollectionController {
         Long userId = collection.getUserId();
         Long musicId = collection.getMusicId();
         Music music = musicRepository.findOne(musicId);
+
         music.setCollected(true);
         musicRepository.save(music);
 
-        collection.setCount((long) 20);
+        collection.setCount((long) new Random().nextInt(100));
         collection.setLove(new Random().nextInt(5));
         collectionRepository.save(collection);
-        //生成用户口味
-        UserStyle userStyle = userStyleRepository.findByUserId(userId);
-        if (userStyle == null) {
-            userStyle = new UserStyle(userId, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-        }
 
-        List<Collection> collection1 = collectionRepository.findByUserId(userId);
-        for (Collection c : collection1) {
-            String type = musicRepository.findOne(c.getMusicId()).getType();
-            //设置userStyle
-            switch (type) {
-                case "rap":
-                    userStyle.setRap(userStyle.getRap() + 0.5);
-                    break;
-                case "blues":
-                    userStyle.setBlues(userStyle.getBlues() + 0.5);
-                    break;
-                case "classical":
-                    userStyle.setClassical(userStyle.getClassical() + 0.5);
-                    break;
-                case "folk":
-                    userStyle.setFolk(userStyle.getFolk() + 0.5);
-                    break;
-                case "heavyMetal":
-                    userStyle.setHeavyMetal(userStyle.getHeavyMetal() + 0.5);
-                    break;
-                case "hiphop":
-                    userStyle.setHiphop(userStyle.getHiphop() + 0.5);
-                    break;
-                case "jazz":
-                    userStyle.setJazz(userStyle.getJazz() + 0.5);
-                    break;
-                case "light":
-                    userStyle.setLight(userStyle.getLight() + 0.5);
-                    break;
-                case "pop":
-                    userStyle.setPop(userStyle.getPop() + 0.5);
-                    break;
-                case "rock":
-                    userStyle.setRock(userStyle.getRock() + 0.5);
-                    break;
-            }
-            userStyleRepository.save(userStyle);
-        }
+        //生成用户口味
+        initUserStyle(userId);
+
         return new ResponseEntity<>("1", HttpStatus.CREATED);
     }
 
@@ -125,4 +89,54 @@ public class CollectionController {
         collectionRepository.deleteByMusicIdAndUserId(musicId, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    private void initUserStyle(Long userId){
+        UserStyle userStyle = userStyleRepository.findByUserId(userId);
+        if (userStyle == null) {
+            userStyle = new UserStyle(userId, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        }
+
+        List<Collection> collection1 = collectionRepository.findByUserId(userId);
+        for (Collection c : collection1) {
+            String type = musicRepository.findOne(c.getMusicId()).getType();
+            if(type == null){
+
+            }
+            //设置userStyle
+//            switch (type) {
+//                case "rap":
+//                    userStyle.setRap(userStyle.getRap() + 0.5);
+//                    break;
+//                case "blues":
+//                    userStyle.setBlues(userStyle.getBlues() + 0.5);
+//                    break;
+//                case "classical":
+//                    userStyle.setClassical(userStyle.getClassical() + 0.5);
+//                    break;
+//                case "folk":
+//                    userStyle.setFolk(userStyle.getFolk() + 0.5);
+//                    break;
+//                case "heavyMetal":
+//                    userStyle.setHeavyMetal(userStyle.getHeavyMetal() + 0.5);
+//                    break;
+//                case "hiphop":
+//                    userStyle.setHiphop(userStyle.getHiphop() + 0.5);
+//                    break;
+//                case "jazz":
+//                    userStyle.setJazz(userStyle.getJazz() + 0.5);
+//                    break;
+//                case "light":
+//                    userStyle.setLight(userStyle.getLight() + 0.5);
+//                    break;
+//                case "pop":
+//                    userStyle.setPop(userStyle.getPop() + 0.5);
+//                    break;
+//                case "rock":
+//                    userStyle.setRock(userStyle.getRock() + 0.5);
+//                    break;
+//            }
+            userStyleRepository.save(userStyle);
+        }
+    }
+
 }

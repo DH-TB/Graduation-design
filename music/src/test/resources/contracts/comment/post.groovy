@@ -10,7 +10,7 @@ Contract.make {
                   {
                           "id": 2,
                           "musicId": 1,
-                          "userId": 1,
+                          "userId": 2,
                           "content": "content",
                           "count":100,
                           "isLike":true

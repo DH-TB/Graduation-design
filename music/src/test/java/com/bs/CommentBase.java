@@ -40,9 +40,7 @@ public class CommentBase {
         }
         RestAssuredMockMvc.webAppContextSetup(this.wac);
     }
-
-
         private void initComment(){
-        commentRepository.save(new Comment((long)1,(long)1,(long)1,"content",100,true));
+        commentRepository.save(new Comment((long)1,(long)1,(long)1,"content",100,true,"nickName","image","2018-05-08 10:13:10.0"));
     }
 }

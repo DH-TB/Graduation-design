@@ -26,13 +26,16 @@ public class Comment {
 
     }
 
-    public Comment(Long id, Long musicId, Long userId, String content, int count, Boolean isLike) {
+    public Comment(Long id, Long musicId, Long userId, String content, int count, Boolean isLike, String nickName, String image, String createTime) {
         this.id = id;
         this.musicId = musicId;
         this.userId = userId;
         this.content = content;
         this.count = count;
         this.isLike = isLike;
+        this.nickName = nickName;
+        this.image = image;
+        this.createTime = createTime;
     }
 
     public String getCreateTime() {

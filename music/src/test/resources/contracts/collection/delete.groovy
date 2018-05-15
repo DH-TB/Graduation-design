@@ -5,7 +5,13 @@ import org.springframework.cloud.contract.spec.Contract
 Contract.make {
     request {
         method 'DELETE'
-        url value(consumer(regex('/collection/\\d+')),producer('/collection/1'))
+        url('/collection/undo') {
+            queryParameters {
+                parameter('musicId', 1)
+                parameter('userId', 2)
+
+            }
+        }
     }
     response {
         status 204
