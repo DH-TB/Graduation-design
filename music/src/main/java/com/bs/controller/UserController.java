@@ -61,7 +61,7 @@ public class UserController {
             String md5Password = getMD5(getMD5(user.getPassword()));
             user.setPassword(md5Password);
             userRepository.save(user);
-            return new ResponseEntity<>("1",HttpStatus.CREATED);
+            return new ResponseEntity<>("注册成功",HttpStatus.CREATED);
         }
     }
 

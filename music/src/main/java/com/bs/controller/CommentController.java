@@ -21,7 +21,7 @@ public class CommentController {
         comment.setLike(false);
         comment.setCount(0);
         commentRepository.save(comment);
-        return new ResponseEntity<>("1", HttpStatus.CREATED);
+        return new ResponseEntity<>("评论成功", HttpStatus.CREATED);
     }
 
     //   获取我所有的评论

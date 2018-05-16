@@ -77,7 +77,7 @@ public class CollectionController {
         //生成用户口味
         initUserStyle(userId);
 
-        return new ResponseEntity<>("1", HttpStatus.CREATED);
+        return new ResponseEntity<>("收藏成功", HttpStatus.CREATED);
     }
 
     //   取消收藏歌曲
